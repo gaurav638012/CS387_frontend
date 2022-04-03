@@ -1,0 +1,154 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+
+    <mat-step [stepControl]="type">
+
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          (ngModelChange)="changeClass()"
+          [(ngModel)]="type">
+          <mat-radio-button  [value]="customer"> </mat-radio-button>    
+          <mat-radio-button  [value]="restaurant"> </mat-radio-button> 
+          <mat-radio-button [value]="delivery"> </mat-radio-button> 
+        </mat-radio-group>
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+
+    </mat-step>
+
+    <mat-step  label="Fill out the specific details">
+
+      <div *ngIf = "is_cust">
+        <form ngForm [formGroup]="customer">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </div>
+
+      <div *ngIf = "is_rest">
+        <form ngForm [formGroup]="delivery">
+          <mat-form-field appearance="fill">
+            <mat-label>Vaccination </mat-label>
+            <input type="radio" name="mode" formControlName="vaccine_status" value="0"  > 
+            <input type="radio" name="mode" formControlName="vaccine_status" value="1"  > 
+            <input type="radio" name="mode" formControlName="vaccine_status" value="2"  > 
+
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf = "is_del">
+        <form ngForm [formGroup]="restaurant">
+          <mat-form-field appearance="fill">
+            <mat-label>Overall Discount</mat-label>
+            <input matInput formControlName="overall_discount" placeholder="Hello"
+                   required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Open Time</mat-label>
+            <input matInput formControlName="open_time" placeholder="Hello"
+                   required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Close Time</mat-label>
+            <input matInput formControlName="close_time" placeholder="Hello"
+                   required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Max Safety</mat-label>
+            <input type="radio" name="mode" formControlName="max_safety" value="yes"  > 
+            <input type="radio" name="mode" formControlName="max_safety" value="no"  > 
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </div>
+      
+
+    </mat-step>
+
+    <mat-step [stepControl]="user">
+      <mat-form-field appearance="fill">
+        <mat-label>UserName</mat-label>
+        <input matInput formControlName="close_time" placeholder="Hello"
+               required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>CONFIRM</ng-template>
+      
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="Submit()">Submit</button>
+      </div>
+    </mat-step>
+
+</mat-horizontal-stepper>
+
+<!--  
+<mat-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button>Reset</button>
+    </div>
+  </mat-step>
+  
+
+</mat-stepper> -->
+
+
+
+
