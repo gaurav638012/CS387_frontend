@@ -1,0 +1,16 @@
+.row {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 20%;
+    text-align: center;
+    background-image: url("../../assets/images/back.jpg");
+    background-size: cover;
+}
+
+.title {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
