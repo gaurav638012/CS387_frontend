@@ -6,10 +6,19 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MaterialModule } from './material/material.module';
+import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { LoginComponent } from './login/login.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   exports: [
 
@@ -20,6 +29,10 @@ import { MaterialModule } from './material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    MatCardModule,
+    MatGridListModule,
+    MatStepperModule,
+    MatSelectModule,
   ],
    providers: [
     {
