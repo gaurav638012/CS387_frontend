@@ -11,6 +11,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -18,10 +19,10 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   exports: [
-
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import { LoginComponent } from './login/login.component';
    providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { displayDefaultIndicatorType: false }
+      useValue: { displayDefaultIndicatorType: false },
     }],
   bootstrap: [AppComponent]
 })

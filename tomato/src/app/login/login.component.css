@@ -1,10 +1,8 @@
 .row {
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-top: 20%;
+    /* margin-left: 30%; */
+    /* margin-right: 30%; */
+    /* margin-top: 20%; */
     text-align: center;
-    background-image: url("../../assets/images/back.jpg");
-    background-size: cover;
 }
 
 .title {
@@ -13,4 +11,17 @@
     align-items: center; /* align vertical */
     margin-bottom: 5%;
     margin-top: 5%;
+}
+
+.mat-form-field {
+    margin-top: 2%;
+    width: 400px;
+}
+
+.main-btn {
+    margin-left: -5%;
+}
+
+.sign-up {
+    margin-top: 10px;
 }
