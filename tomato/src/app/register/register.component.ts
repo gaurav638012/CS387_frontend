@@ -122,8 +122,8 @@ export class RegisterComponent implements OnInit {
       }
       this.userService.register_customer(c).pipe( first())
       .subscribe(
-      data => {console.log(data),this.router.navigate(["/login"])},
-      error => {console.log(error)}
+        data => {console.log(data),this.router.navigate(["/login"])},
+        error => {console.log(error)}
       )
     } else if (this.is_rest) {
       console.log("Restaurant");
@@ -144,8 +144,8 @@ export class RegisterComponent implements OnInit {
       }
       this.userService.register_restaurant(c).pipe( first())
       .subscribe(
-      data => {console.log(data),this.router.navigate(["/login"])},
-      error => {console.log(error)}
+        data => {console.log(data),this.router.navigate(["/login"])},
+        error => {console.log(error)}
       )
     } else if (this.is_del) {
       console.log("Delivery");

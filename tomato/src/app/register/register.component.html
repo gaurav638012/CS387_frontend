@@ -167,7 +167,7 @@
                           <p>
                             <mat-form-field appearance="fill">
                               <mat-label>Overall Discount</mat-label>
-                              <input matInput formControlName="overall_discoumt" formBuilder
+                              <input matInput formControlName="overall_discount" formBuilder
                                      required> 
                             </mat-form-field>
                           </p>
@@ -208,7 +208,7 @@
                       </mat-step>
 
                       <mat-step [stepControl]="delivery" *ngIf="is_del">
-                        <form [formControl]="delivery" (ngSubmit)="Submit()">
+                        <form [formGroup]="delivery" (ngSubmit)="Submit()">
                           <ng-template matStepLabel>Delivery</ng-template>
                           <p>
                             <mat-form-field appearance="fill">
