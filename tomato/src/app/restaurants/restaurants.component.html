@@ -48,17 +48,41 @@
                         <mat-label>Select</mat-label>
                         <mat-select [(value)]="selected_address">
                         <div *ngFor = "let address of address_list['addressResult']">
-                            <mat-option value = "{{address}}">ADDRESS:{{address.gen_address}} &nbsp;  Lat:{{address.latitude}} &nbsp; Long:{{address.longitude}}</mat-option>
+                            <mat-option [value] = "address">ADDRESS:{{address.gen_address}}  &nbsp;  Lat:{{address.latitude}} &nbsp; Long:{{address.longitude}}</mat-option>
                         </div>
                         
                         </mat-select>
                     </mat-form-field>
             </div>
-            <!-- <p>Selected Address: &nbsp; {{selected_address.gen}}</p> -->
+            <p>Selected Address: &nbsp; {{selected_address}}</p>
             <button mat-raised-button color="primary" align = "center" (click)="getRest()" >Get Restaurant </button>
             
             <div class="row" style="margin-top: 2%;">
-                <div class="col-lg-4 col-md-6">
+                <div *ngFor = "let rest of rest_list['result']">
+                    <div class="col-lg-4 col-md-6">
+                        <mat-card class="example-card">
+                            <a routerLink="/menupage/{{rest['restaurant_id']}}">
+    
+                                <mat-card-header>
+                                    <div mat-card-avatar class="example-header-image"></div>
+                                    <mat-card-title>{{rest.restaurant_name}}</mat-card-title>
+                                </mat-card-header>
+                                
+                                <img mat-card-lg-image src="../../assets/img/restaurant.png" alt="Photo of a Shiba Inu">
+                                <mat-card-content>
+                                    <p>
+                                        Distance : {{rest.distance}}
+                                    </p>
+    
+                                </mat-card-content>
+                            </a>
+                                <mat-card-actions *ngIf="isCustomer">
+                                    
+                                </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-4 col-md-6">
                     <mat-card class="example-card">
                         <a routerLink="/menupage/1">
 
@@ -121,7 +145,7 @@
                                 
                             </mat-card-actions>
                     </mat-card>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
