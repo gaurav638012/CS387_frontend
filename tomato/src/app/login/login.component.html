@@ -90,22 +90,23 @@
                 <div class="col-lg-6">
                     <div class="hero-content">
                         <h1 class="wow fadeInUp" data-wow-delay=".2s">Login </h1>
-                        <p>
-                        <mat-form-field appearance="legacy">
-                            <mat-label>Username</mat-label>
-                            <input matInput placeholder="Tomato">
-                        </mat-form-field>
-                        </p>
+                        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                            <p>
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput formControlName="username" placeholder="Tomato">
+                                </mat-form-field>
+                            </p>
 
-                        <p>
-                        <mat-form-field appearance="legacy">
-                            <mat-label>Password</mat-label>
-                            <input matInput placeholder="Matato">
-                        </mat-form-field>
-                        </p>
-                         
-                        <a routerLink="home" class="main-btn btn-hover wow fadeInUp"
-                            data-wow-delay=".6s">Login</a>
+                            <p>
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password" placeholder="Matato">
+                                </mat-form-field>
+                            </p>
+                            <button mat-raised-button color="primary" >Login </button>
+                            <!-- <button class = "login_button">Login</button> -->
+                        </form>
 
                         <div class="sign-up">Don't have an account? <a routerLink="register">Sign up here</a> </div>
                     </div>

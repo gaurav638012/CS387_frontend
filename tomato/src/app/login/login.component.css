@@ -25,3 +25,9 @@
 .sign-up {
     margin-top: 10px;
 }
+
+.login_button{
+    background-color: slateblue;
+    font-size: 30px;
+    border-radius: 20px;
+}

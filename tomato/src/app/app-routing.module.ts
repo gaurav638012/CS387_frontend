@@ -16,6 +16,7 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {path: 'register',component: RegisterComponent},
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'orders/:id', component: OrdersComponent}, 
   {path: 'orders/:id/:oid', component: OrderDetailsComponent}, 
   {path: 'approveOrders', component: ApproveOrdersComponent}, 
+  {path: 'logout',component:LogoutComponent},
   {path: '',component: HomeComponent},
   {path: "**", redirectTo:""},
 ];
