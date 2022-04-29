@@ -29,7 +29,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
 import { AuthenticationService, AuthGuard } from './services/authentication.service';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './logout/logout.component'; 
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
     RestaurantsComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    ApproveOrdersComponent
+    ApproveOrdersComponent,
+    LogoutComponent
   ],
   exports: [
   ],

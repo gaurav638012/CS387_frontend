@@ -19,8 +19,17 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,) { 
     if (sessionStorage.getItem('token')!==null && sessionStorage.getItem('token')!==undefined) {
-      console.log("what the fuck")
-      this.router.navigate(['login']);
+      //console.log("what the fuck")
+      let payload = JSON.parse( sessionStorage.getItem('payload') || '{}' )
+                if(payload['role'] === 'CUSTOMER'){
+                  this.router.navigate(['restaurants'])
+                }
+                if(payload['role'] === 'DELIVERY'){
+                  this.router.navigate(['approveOrders'])
+                }
+                if(payload['role']==='RESTAURANT'){
+                  this.router.navigate(['approveOrders'])
+                }
     }
   }
 
@@ -34,7 +43,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-   console.log("hai girish")
+   //console.log("hai girish")
     if (this.formGroup.invalid) {
       
         this.submitted = false;

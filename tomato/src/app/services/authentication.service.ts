@@ -80,8 +80,8 @@ export class AuthenticationService {
     return this.http.post(LOGIN_URL,data)  
     .pipe(
       tap(response => {
-        console.log(response)
-        this.setSession(response); 
+        console.log(response);
+        this.setSession({token:response}); 
       }),
       shareReplay(),
     );
