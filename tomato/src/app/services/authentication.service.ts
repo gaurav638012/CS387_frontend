@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {genUser} from '../_models/genUser';
 import {BASE_URL} from './base';
+import { HttpClientModule } from '@angular/common/http'; 
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { CanActivate, Router } from '@angular/router';
 import { tap, shareReplay } from 'rxjs/operators';
 import { LogoutService } from './logout.service';
 import * as moment from 'moment';
-const LOGIN_URL = BASE_URL+'/api/auth/get-token/';
-const REFRESH_URL = BASE_URL+'/api/auth/refresh-token/';
+const LOGIN_URL = '/api/login/';
+//const REFRESH_URL = '/api/auth/refresh-token/';
 
 
 @Injectable({
@@ -26,39 +27,23 @@ export class AuthenticationService {
   private setSession(authResult:any) {
     
     const token = authResult.token; 
- 
-    /**
-     * using function decode to get payload of JWT token
-     * 
-     */
+
     const payload = this.decode(token); 
-    
-    /**
-     * converting expiry time from unix timestamp to date time
-     */
+
     const expiresAt = moment.unix(payload.exp); 
-  
-    /**
-     * storing token and expiry details
-     */
+
     sessionStorage.setItem('token', authResult.token);
+    sessionStorage.setItem('payload', JSON.stringify(payload));
     sessionStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
-  /**
-   * @return extracting token
-   */
+
   get token(): string {
     return JSON.stringify(sessionStorage.getItem('token'));
   }
-  
-  /**
-   * @param token JWT TOKEN
-   */
+
   private decode(token: string) {
     try {
-        /**
-         * breaking JWT into 3 components and parsing
-         */
+
         return JSON.parse(atob(token.split(".")[1])); 
     } catch (e) {
         
@@ -67,18 +52,18 @@ export class AuthenticationService {
   /**
    * to call on rendering any page 
    */
-  refreshToken() {
-    if (moment().isBetween(this.getExpiration().subtract(1, 'days'), this.getExpiration())) {  
-      /**
-       * sending a refresh request to backend server if loggedIn
-       */
-      return this.http.post(REFRESH_URL,{token:this.token})
-      .pipe(
-        tap(response => this.setSession(response)), 
-        shareReplay(),
-      ).subscribe();
-    }
-  }
+  // refreshToken() {
+  //   if (moment().isBetween(this.getExpiration().subtract(1, 'days'), this.getExpiration())) {  
+  //     /**
+  //      * sending a refresh request to backend server if loggedIn
+  //      */
+  //     return this.http.post(REFRESH_URL,{token:this.token})
+  //     .pipe(
+  //       tap(response => this.setSession(response)), 
+  //       shareReplay(),
+  //     ).subscribe();
+  //   }
+  // }
   /**
    * @return Returns expiry time of the token
    */
@@ -88,34 +73,24 @@ export class AuthenticationService {
 
     return moment(expiresAt); 
   }
-  /**
-   * sending post to get-token url
-   * @param data Login object
-   * @return Sets data of get-token result via setSession
-   */
+
   login(data: genUser)
   { 
     
     return this.http.post(LOGIN_URL,data)  
     .pipe(
       tap(response => {
-        
+        console.log(response)
         this.setSession(response); 
       }),
       shareReplay(),
     );
   }
-  
-  /**
-   * @return Returns if user is logged in
-   */
+
   isLoggedIn() {
     return moment().isBefore(this.getExpiration()); 
   }
-  
-  /**
-   * @return Returns if user is logged out
-   */
+
   isLoggedOut() {
     return !this.isLoggedIn();
   }
@@ -165,7 +140,7 @@ export class AuthGuard implements CanActivate {
       /**
        * check login status and refresh
        */
-      this.authService.refreshToken();
+      //this.authService.refreshToken();
 
       return true;
     } else {

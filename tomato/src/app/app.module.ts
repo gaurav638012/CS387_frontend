@@ -28,7 +28,8 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
-
+import { AuthenticationService, AuthGuard } from './services/authentication.service';
+import { HttpClientModule } from '@angular/common/http'; 
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ApproveOrdersComponent } from './approve-orders/approve-orders.componen
   exports: [
   ],
   imports: [
+     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -68,7 +70,9 @@ import { ApproveOrdersComponent } from './approve-orders/approve-orders.componen
     MatSlideToggleModule,
   ],
    providers: [
-    {
+    AuthenticationService,
+    AuthGuard,
+    { 
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
     }],
