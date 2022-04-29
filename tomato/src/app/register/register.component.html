@@ -128,7 +128,7 @@
                         </form>
                         <div>
                           <button mat-button matStepperPrevious>Back</button>
-                          <button mat-button matStepperNext >Next</button>
+                          <button mat-button type='submit' (click)="Submit()" >Submit</button>
                           <button mat-button (click)="stepper.reset()">Reset</button>
                         </div>
                       </mat-step>
@@ -203,7 +203,7 @@
                         <div>
                           <button mat-button matStepperPrevious>Back</button>
                           <button mat-button (click)="stepper.reset()">Reset</button>
-                          <button mat-button (click)="Submit()">Next</button>
+                          <button mat-button type='submit' (click)="Submit()" >Submit</button>
                         </div>
                       </mat-step>
 
@@ -235,11 +235,8 @@
                         <div>
                           <button mat-button matStepperPrevious>Back</button>
                           <button mat-button (click)="stepper.reset()">Reset</button>
-                          <button mat-button (click)="Submit()">Next</button>
+                          <button mat-button type='submit' (click)="Submit()" >Submit</button>
                         </div>
-                      </mat-step>
-                      <mat-step>
-                        
                       </mat-step>
                     </mat-stepper>
                   </div>

@@ -4,7 +4,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { UserService } from '../services/user.service';
 import { genUser } from '../_models/genUser';
 import { Customer } from '../_models/customer';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, first } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -98,36 +98,72 @@ export class RegisterComponent implements OnInit {
   }
 
   Submit(){
-    console.log("Called");
+    console.log("Called")
     if (this.firstFormGroup.invalid || 
-        this.secondFormGroup.invalid || 
-        this.customer.invalid || 
-        this.restaurant.invalid || 
-        this.delivery.invalid ) {
+        this.secondFormGroup.invalid ||
+        (this.is_cust && this.customer.invalid) || 
+        (this.is_rest && this.restaurant.invalid) || 
+        (this.is_del && this.delivery.invalid) ) {
           return;
     } 
 
-    console.log("Called");
+    console.log("Called",this.firstFormGroup.value,this.secondFormGroup.value);
 
     if (this.is_cust) {
       console.log("Customer");
-      let a = {
+      let c = {
+        username : this.secondFormGroup.controls["username"].value,
+        password : this.secondFormGroup.controls["password"].value,
+        mobile: this.customer.controls["mobile"].value,
+        email: this.customer.controls["email"].value,
         address: "84, Near Honda Showroom, Adchini, New Delhi",
         latitude: 28.53538174,
         longitude: 77.19692286
       }
-      let c = {
-        username : this.firstFormGroup.controls["username"].value,
-        password : this.firstFormGroup.controls["password"].value,
-        mobile: this.customer.controls["mobile"].value,
-        email: this.customer.controls["email"].value,
-        addresses: [a],
-      }
-      this.userService.register_customer(c).pipe(
-        tap(_ => {console.log(_); this.router.navigate(['/login']);}),
-        catchError(this.handleError<Customer>("register_customer")),
+      this.userService.register_customer(c).pipe( first())
+      .subscribe(
+      data => {console.log(data),this.router.navigate(["/login"])},
+      error => {console.log(error)}
       )
-    }    
+    } else if (this.is_rest) {
+      console.log("Restaurant");
+      let c = {
+        username : this.secondFormGroup.controls["username"].value,
+        password : this.secondFormGroup.controls["password"].value,
+        restaurant_name: this.restaurant.controls["name"].value,
+        mobile: this.restaurant.controls["mobile"].value,
+        email: this.restaurant.controls["email"].value,
+        address: "84, Near Honda Showroom, Adchini, New Delhi",
+        latitude: 28.53538174,
+        longitude: 77.19692286,
+        max_safety_follow: this.restaurant.controls["covid_safety"].value,
+        overall_discount: this.restaurant.controls["overall_discount"].value,
+        open_time: this.restaurant.controls["open_time"].value,
+        close_time: this.restaurant.controls["close_time"].value,
+        avg_cost_for_two: this.restaurant.controls["avg_cost_for_two"].value
+      }
+      this.userService.register_restaurant(c).pipe( first())
+      .subscribe(
+      data => {console.log(data),this.router.navigate(["/login"])},
+      error => {console.log(error)}
+      )
+    } else if (this.is_del) {
+      console.log("Delivery");
+      let c = {
+        username : this.secondFormGroup.controls["username"].value,
+        password : this.secondFormGroup.controls["password"].value,
+        mobile: this.delivery.controls["mobile"].value,
+        email: this.delivery.controls["email"].value,
+        vaccination_status: this.delivery.controls["doses"].value
+      }
+      this.userService.register_delivery(c).pipe( first())
+      .subscribe(
+      data => {console.log(data),this.router.navigate(["/login"])},
+      error => {console.log(error)}
+      )
+    } else {
+      this.router.navigate(["/register"]);
+    }
   }
 
   setRole() {

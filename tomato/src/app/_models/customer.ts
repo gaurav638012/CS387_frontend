@@ -20,5 +20,7 @@ export class CustomerInput{
     password: string;
     mobile: number;
     email: string;
-    addresses: Address[];
+    address: string;
+    latitude: number;
+    longitude: number;
 } 

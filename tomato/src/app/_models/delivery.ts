@@ -13,3 +13,12 @@ export class Delivery implements genUser {
     available: boolean;
     vaccination_status: string;
 }
+
+export class DeliveryInput {
+    username: string;
+    password: string;
+
+    mobile: number;
+    email: string;
+    vaccination_status: string;
+}
