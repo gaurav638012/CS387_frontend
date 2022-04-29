@@ -28,16 +28,11 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
-<<<<<<< HEAD
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService, AuthGuard } from './services/authentication.service';
-=======
-import { AuthenticationService, AuthGuard } from './services/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './logout/logout.component'; 
 
->>>>>>> 6b512ed885863ddc5e4e04492aee10f5ad8688db
 
 @NgModule({
   declarations: [
