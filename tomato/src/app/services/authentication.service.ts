@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Login} from '../_models/login';
+import {genUser} from '../_models/genUser';
 import {BASE_URL} from './base';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { CanActivate, Router } from '@angular/router';
@@ -19,11 +19,11 @@ export class AuthenticationService {
   /**
    * storing current user value i.e, username if necessary
    */
-  currentUserValue; 
+  currentUserValue:any; 
   constructor(
     private http: HttpClient,
   ) { }
-  private setSession(authResult) {
+  private setSession(authResult:any) {
     
     const token = authResult.token; 
  
@@ -41,14 +41,14 @@ export class AuthenticationService {
     /**
      * storing token and expiry details
      */
-    localStorage.setItem('token', authResult.token);
-    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    sessionStorage.setItem('token', authResult.token);
+    sessionStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
   /**
    * @return extracting token
    */
   get token(): string {
-    return localStorage.getItem('token');
+    return JSON.stringify(sessionStorage.getItem('token'));
   }
   
   /**
@@ -83,8 +83,8 @@ export class AuthenticationService {
    * @return Returns expiry time of the token
    */
   getExpiration() {
-    const expiration = localStorage.getItem('expires_at');
-    const expiresAt = JSON.parse(expiration);
+    const expiration = sessionStorage.getItem('expires_at');
+    const expiresAt = JSON.parse(JSON.stringify(expiration));
 
     return moment(expiresAt); 
   }
@@ -93,7 +93,7 @@ export class AuthenticationService {
    * @param data Login object
    * @return Sets data of get-token result via setSession
    */
-  login(data: Login)
+  login(data: genUser)
   { 
     
     return this.http.post(LOGIN_URL,data)  
@@ -133,7 +133,7 @@ export class AuthInterceptor implements HttpInterceptor {
     /**
      * token value is stored here
      */
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       /**
        * add authorization header "Authorization:JWT token"
