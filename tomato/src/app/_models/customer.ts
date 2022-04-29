@@ -1,3 +1,4 @@
+import { Address } from "./address";
 import { genUser } from "./genUser";
 
 export class Customer implements genUser{
@@ -11,4 +12,6 @@ export class Customer implements genUser{
     mobile_no: number;
     email: string;
     subscription: boolean;
+
+    addresses: Address[];
 } 
