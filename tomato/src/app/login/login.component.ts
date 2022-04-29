@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,) { 
-      console.log("session", sessionStorage.getItem('token'));
+
     if (sessionStorage.getItem('token')!==null && sessionStorage.getItem('token')!==undefined) {
       let payload = JSON.parse( sessionStorage.getItem('payload') || '{}' )
       console.log(payload['role'].toUpperCase());

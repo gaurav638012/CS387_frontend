@@ -36,15 +36,15 @@
     <section id="services" *ngIf="isCustomer" class="service-section pt-150">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-xl-6 col-lg-8">
-                    <div class="section-title text-center mb-70" style="margin-top: -5%;">
-                        <span class="wow fadeInUp" data-wow-delay=".2s">Registered addresses
-                        </span>
+                <div class="col-lg-2 col-md-2">
+                    <div class="section-title text-center mb-70" style="margin-top: -5%; margin-left: -100px;">
+                        <span class="wow fadeInUp" data-wow-delay=".2s">Registered addresses</span>
                     </div>
                 </div>
             </div>
+
             <div class="row justify-content-center" id="items" >
-                <div class="col-lg-4 col-md-5"></div> 
+                <div class="col-lg-3 col-md-5"></div> 
                 <div class="col-lg-1 col-md-2">
                     <button mat-raised-button color="primary">
                         <a routerLink="/addAddress">Add new address</a>
@@ -52,59 +52,81 @@
                 </div>
                 <div class="col-lg-4 col-md-5"></div>
             </div>
-            <div class="row" style="margin-top: 2%;">
-                <div class="col-lg-4 col-md-6">
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title>Address</mat-card-title>
-                        </mat-card-header>
+
+            <div class="row" style="margin-top: 5%;">
+                <div *ngFor="let addr of addresses['res'].rows">
+                <div class="col-12">
+                    <mat-card class="example-card mat-elevation-z8">
                         <mat-card-content>
                           <p>
-                            Show Address here
+                            {{addr.gen_address}}
+                            <span>
+                                <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button></span>
                           </p>
                         </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
-                          <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button>
-                        </mat-card-actions>
-                      </mat-card>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title>Address</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                          <p>
-                            Show Address here
-                          </p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
-                          <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button>
-                        </mat-card-actions>
-                      </mat-card>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title>Address</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                          <p>
-                            Show Address here
-                          </p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
-                          <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button>
-                        </mat-card-actions>
                       </mat-card>
                 </div>
             </div>
+                        
+            </div>
+
+            <!-- <div class="row" style="margin-top: 2%;"> 
+                <div class="col-lg-4 col-md-6">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title>Address</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>
+                            Show Address here
+                          </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
+                          <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button>
+                        </mat-card-actions>
+                      </mat-card>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title>Address</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>
+                            Show Address here
+                          </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
+                          <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button>
+                        </mat-card-actions>
+                      </mat-card>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title>Address</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>
+                            Show Address here
+                          </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-raised-button color="primary" ><a routerLink="/updateAddress/1"> Update Address </a></button>
+                          <button mat-raised-button color="warn" *ngIf="isCustomer">Delete address</button>
+                        </mat-card-actions>
+                      </mat-card>
+                </div>
+            </div> -->
         </div>
     </section>
 </div>

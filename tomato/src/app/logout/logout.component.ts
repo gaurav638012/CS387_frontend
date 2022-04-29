@@ -10,7 +10,9 @@ export class LogoutComponent implements OnInit {
   constructor(
    
     private router:Router,
-  ) { }
+  ) { 
+
+  }
 /**
  * This functions clears the local storage and moves out
  * 

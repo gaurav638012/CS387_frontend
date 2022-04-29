@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'additem', component: AddFooditemComponent},
   {path: 'updateitem/:id', component: UpdateitemComponent},
   {path: 'updateProfile', component: UpdateProfileComponent},
-  {path: 'address/:id', component: CustomerAddressComponent},
+  {path: 'address', component: CustomerAddressComponent},
   {path: 'addAddress', component: AddAddressComponent},
   {path: 'updateAddress/:id', component: UpdateAddressComponent},
   {path: 'cart/:id', component: CartComponent},

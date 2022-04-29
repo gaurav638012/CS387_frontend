@@ -5,3 +5,16 @@
 a {
     color: white;
 }
+
+mat-card {
+    width: 100%;
+}
+
+p > span {
+    position: absolute;
+    right: 10px;
+}
+
+span > button {
+    margin-bottom: 10%;
+}
