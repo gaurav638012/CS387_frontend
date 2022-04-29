@@ -62,115 +62,124 @@
                         </div>
 
                         <div *ngIf="isCustomer">
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Mobile number</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Address</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
+                            <form [formGroup]="updateForm" (ngSubmit)="submit()">
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Mobile number</mat-label>
+                                        <input matInput formControlName="mobile"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput formControlName="email"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput formControlName="address"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                            </form>
+                            <div class="col-lg-1 col-md-1">
+                                <button mat-button color="primary" type='submit' (click)="submit()">Update</button>
+                            </div>
                         </div>
 
                         <div *ngIf="isRestaurant">
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Restaurant Name</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Mobile number</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Address</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Covid Safety</mat-label>
-                                    <mat-select>
-                                        <mat-option value="zero">No</mat-option>
-                                        <mat-option value="one">Yes</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Opening Time</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Closing Time</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Average Cost for Two</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
+                            <form [formGroup]="updateForm" (ngSubmit)="submit()">
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Restaurant Name</mat-label>
+                                        <input matInput formControlName="name"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Mobile number</mat-label>
+                                        <input matInput formControlName="mobile"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput formControlName="email"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput formControlName="address"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Covid Safety</mat-label>
+                                        <input matInput formControlName="covid_safety"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Opening Time</mat-label>
+                                        <input matInput formControlName="open_time"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Closing Time</mat-label>
+                                        <input matInput formControlName="close_time"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Average Cost for Two</mat-label>
+                                        <input matInput formControlName="avg_cost_for_two"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                            </form>
+                            <div class="col-lg-1 col-md-1">
+                                <button mat-button color="primary" type='submit' (click)="submit()">Update</button>
+                            </div>
                         </div>
 
                         <div *ngIf="isDelivery">
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Mobile number</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput 
-                                        placeholder="">
-                                </mat-form-field>
-                            </p>
-                            <p>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Number of Doses</mat-label>
-                                    <mat-select>
-                                        <mat-option value="zero">0</mat-option>
-                                        <mat-option value="one">1</mat-option>
-                                        <mat-option value="two">2</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </p>
+                            <form [formGroup]="updateForm" (ngSubmit)="submit()">
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Mobile number</mat-label>
+                                        <input matInput formControlName="mobile"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput formControlName="email"
+                                            placeholder="">
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Number of Doses</mat-label>
+                                        <input matInput formControlName="doses">
+                                    </mat-form-field>
+                                </p>
+                            </form>
+                            <div class="col-lg-1 col-md-1">
+                                <button mat-button color="primary" type='submit' (click)="submit()">Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>

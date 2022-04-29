@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { HttpClientModule } from '@angular/common/http'; 
+import { ConstantPool } from '@angular/compiler';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,18 +19,19 @@ export class LoginComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,) { 
+      console.log("session", sessionStorage.getItem('token'));
     if (sessionStorage.getItem('token')!==null && sessionStorage.getItem('token')!==undefined) {
-      //console.log("what the fuck")
       let payload = JSON.parse( sessionStorage.getItem('payload') || '{}' )
-                if(payload['role'] === 'CUSTOMER'){
-                  this.router.navigate(['restaurants'])
-                }
-                if(payload['role'] === 'DELIVERY'){
-                  this.router.navigate(['approveOrders'])
-                }
-                if(payload['role']==='RESTAURANT'){
-                  this.router.navigate(['approveOrders'])
-                }
+      console.log(payload['role'].toUpperCase());
+      if(payload['role'].toUpperCase() === 'CUSTOMER'){
+        this.router.navigate(['restaurants'])
+      }
+      if(payload['role'].toUpperCase() === 'DELIVERY'){
+        this.router.navigate(['approveOrders'])
+      }
+      if(payload['role'].toUpperCase() ==='RESTAURANT'){
+        this.router.navigate(['approveOrders'])
+      }
     }
   }
 
@@ -57,6 +59,7 @@ export class LoginComponent implements OnInit {
             data => {
                 console.log(data);
                 const tok=sessionStorage.getItem('token');
+                console.log(tok);
                 if(tok==null||tok==undefined){
                     this.loading=false;
                     window.alert('invalid login');
@@ -64,30 +67,16 @@ export class LoginComponent implements OnInit {
                 }
                 
                 let payload = JSON.parse( sessionStorage.getItem('payload') || '{}' )
-                if(payload['role'] === 'CUSTOMER'){
+                console.log(payload['role'].toUpperCase());
+                if(payload['role'].toUpperCase() === 'CUSTOMER'){
                   this.router.navigate(['restaurants'])
                 }
-                if(payload['role'] === 'DELIVERY'){
+                if(payload['role'].toUpperCase() === 'DELIVERY'){
                   this.router.navigate(['approveOrders'])
                 }
-                if(payload['role']==='RESTAURANT'){
+                if(payload['role'].toUpperCase() ==='RESTAURANT'){
                   this.router.navigate(['approveOrders'])
                 }
-
-                // else{
-                //     this.idService.IDENTITY().pipe(first())
-                //     .subscribe(
-                //         data=>{
-                //         if(data['is_professor']==true){
-                //             localStorage.setItem('is_professor','true');
-                //         }
-                //         else{
-                //             localStorage.setItem('is_professor','false');
-                //         }
-                //         this.router.navigate([this.returnUrl]);
-                //     });
-                // }
-                
             },
             error => {
                 this.loading = false;

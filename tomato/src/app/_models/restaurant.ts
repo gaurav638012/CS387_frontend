@@ -36,3 +36,14 @@ export class RestaurantInput {
     latitude: number
     longitude: number;
 }
+
+export class RestaurantUpdate {
+    restaurant_name: number;
+    mobile: number;
+    email: string;
+    overall_discount: number;
+    max_safety_follow: boolean
+    open_time: string;
+    close_time: string;
+    avg_cost_for_two: number;
+}

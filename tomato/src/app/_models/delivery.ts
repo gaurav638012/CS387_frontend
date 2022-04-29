@@ -22,3 +22,9 @@ export class DeliveryInput {
     email: string;
     vaccination_status: string;
 }
+
+export class DeliveryUpdate {
+    mobile: number;
+    email: string;
+    vaccination_status: string;
+}

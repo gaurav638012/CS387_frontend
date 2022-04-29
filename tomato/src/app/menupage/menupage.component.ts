@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menupage',
@@ -7,14 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenupageComponent implements OnInit {
 
-  isCustomer = true;
-  isRestaurant = true;
+  isCustomer = false;
+  isRestaurant = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-
+    if (sessionStorage.getItem('token')!==null && sessionStorage.getItem('token')!==undefined) {
+      //console.log("what the fuck")
+      let payload = JSON.parse( sessionStorage.getItem('payload') || '{}' );
+      if(payload['role'] === 'CUSTOMER'){
+        this.isCustomer = true;
+      }
+      if(payload['role'] === 'RESTAURANT'){
+        this.isRestaurant = true;
+      }
+      console.log(payload['role']);
+    }
   }
-
-
 }

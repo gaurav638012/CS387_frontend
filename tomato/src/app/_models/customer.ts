@@ -24,3 +24,8 @@ export class CustomerInput{
     latitude: number;
     longitude: number;
 } 
+
+export class CustomerUpdate {
+    mobile: number;
+    email: string;
+}
