@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup ,Validators} from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { UserService } from '../services/user.service';
+import { genUser } from '../_models/genUser';
+import { Customer } from '../_models/customer';
+import { tap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
+
 const mobile_number = /^(\+\d{1,3}[- ]?)?\d{10}$/;
 @Component({
   selector: 'app-register',
@@ -51,101 +58,105 @@ export class RegisterComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
-  
 
-  constructor(private _formBuilder: FormBuilder) { }
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: [''],
+      role: ['', Validators.pattern(/customer|delivery|restaurant/i)],
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });
-    this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
     this.customer = this._formBuilder.group({
+      mobile : ['' ,[Validators.required, Validators.min(6000000000), Validators.max(9999999999)]],
+      email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
     });
-    this.delivery = this._formBuilder.group({
-      vaccine_status: ['', Validators.required],
-    });
     this.restaurant = this._formBuilder.group({
-      overall_discount: ['', Validators.required],
-      max_safety: ['', Validators.required],
-      open_time: ['', Validators.required],
-      close_time: ['', Validators.required],
-    });
-    this.user = this._formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      confirm_password: ['', Validators.required],
-      email: ['', Validators.required],
+      name: ['', Validators.required],
       mobile: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
+      covid_safety: ['', Validators.required], 
+      overall_discount: ['', Validators.required], 
+      open_time: ['', Validators.required],
+      close_time: ['', Validators.required], 
+      avg_cost_for_two: ['', Validators.required], 
+    });
+    this.delivery = this._formBuilder.group({
+      mobile: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      doses: ['', Validators.required],
     });
   }
 
   Submit(){
+    console.log("Called");
+    if (this.firstFormGroup.invalid || 
+        this.secondFormGroup.invalid || 
+        this.customer.invalid || 
+        this.restaurant.invalid || 
+        this.delivery.invalid ) {
+          return;
+    } 
 
-  }
+    console.log("Called");
 
-  checkCommonForm() {
-    if (this.username == "" || this.password == "") {
-      this.filledfirst = false;
-    } else {
-      this.filledfirst = true;
-    }
-    this.isCompleted1 = this.filledfirst;
-  }
-
-  checkSpecificForm() {
     if (this.is_cust) {
-      if (this.cust_mobile < 6000000000 || this.cust_mobile > 9999999999) {
-        this.filledsecond = false;
-      } else if (this.cust_address == "") {
-        this.filledsecond = false;
-      } else {
-        this.filledsecond = true;
+      console.log("Customer");
+      let a = {
+        address: "84, Near Honda Showroom, Adchini, New Delhi",
+        latitude: 28.53538174,
+        longitude: 77.19692286
       }
-    } 
-    else if (this.is_rest) {
-      if (this.rest_name == "" || this.rest_address == "") this.filledsecond = false;
-      else if (this.rest_mobile < 6000000000 || this.rest_mobile > 9999999999) {
-        this.filledsecond = false;
-      } 
-      else if (this.open_time == "" || this.close_time == "") this.filledsecond = false;
-      else if (this.avg_cost_for_two == 0) this.filledsecond = false;
-      else this.filledsecond = true;
-    } 
-    else if (this.is_del) {
-      if (this.del_mobile < 6000000000 || this.del_mobile > 9999999999) this.filledsecond = false;
-      else this.filledsecond = true;
+      let c = {
+        username : this.firstFormGroup.controls["username"].value,
+        password : this.firstFormGroup.controls["password"].value,
+        mobile: this.customer.controls["mobile"].value,
+        email: this.customer.controls["email"].value,
+        addresses: [a],
+      }
+      this.userService.register_customer(c).pipe(
+        tap(_ => {console.log(_); this.router.navigate(['/login']);}),
+        catchError(this.handleError<Customer>("register_customer")),
+      )
+    }    
+  }
+
+  setRole() {
+    switch (this.firstFormGroup.controls["role"].value.toLowerCase()) {
+      case "customer":
+        this.is_cust = true;
+        break;
+      case "restaurant":
+        this.is_rest = true;
+        break;
+      case "delivery":
+        this.is_del = true;
+        break;
+      default:
+        break;
     }
-    this.isCompleted2 = this.filledsecond;
   }
 
-  logMessage() {
-    console.log("Username: ", this.username);
-    console.log("Password: ", this.password);
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+  
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+  
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+  
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
-
-  setCustomer() {
-    console.log("Setting customer");
-    this.isCompleted0 = this.is_cust = true;
-    this.is_rest = this.is_del = false;
-  }
-
-  setRestaurant() {
-    console.log("Setting restaurant");
-    this.isCompleted0 = this.is_rest = true;
-    this.is_cust = this.is_del = false;
-  }
-
-  setDelivery() {
-    console.log("Setting Delivery");
-    this.isCompleted0 = this.is_del = true;
-    this.is_rest = this.is_cust = false;
-  }
-
 }

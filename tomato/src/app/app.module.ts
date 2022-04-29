@@ -28,8 +28,9 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
-
-
+import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -66,8 +67,11 @@ import { ApproveOrdersComponent } from './approve-orders/approve-orders.componen
     MatExpansionModule,
     MatIconModule,
     MatSlideToggleModule,
+    HttpClientModule,
   ],
    providers: [
+     UserService,
+     AuthenticationService,
     {
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },

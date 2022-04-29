@@ -8,10 +8,17 @@ export class Customer implements genUser{
     role: string;
     valid: boolean;
     
-    customer_id : number;
-    mobile_no: number;
+    mobile: number;
     email: string;
     subscription: boolean;
 
+    addresses: Address[];
+} 
+
+export class CustomerInput{
+    username: string;
+    password: string;
+    mobile: number;
+    email: string;
     addresses: Address[];
 } 
