@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models';
-import {UserMy} from '../_models/user-my';
+import { UserMy} from '../_models/user-my';
 import {UserMyList} from '../_models/list_of_student';
 import {BASE_URL} from  './base';
 import { ConstantPool } from '@angular/compiler';
-const REGISTER_URL = BASE_URL+'/api/user/';
+const REGISTER_URL = BASE_URL+'/api/register/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
