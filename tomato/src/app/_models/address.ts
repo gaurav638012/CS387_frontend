@@ -1,7 +1,5 @@
 export interface Address {
-    apartment_name: string;
-    street_name: string;
-    area_name: string;
+    address: string;
     latitude: number;
     longitude: number;
 }

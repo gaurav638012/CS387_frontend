@@ -19,3 +19,20 @@ export class Restaurant implements genUser {
     latitude: number
     longitude: number;
 }
+
+export class RestaurantInput {
+    username: string;
+    password: string;
+    
+    restaurant_name: number;
+    mobile: number;
+    email: string;
+    overall_discount: number;
+    max_safety_follow: boolean
+    open_time: string;
+    close_time: string;
+    avg_cost_for_two: number;
+    address: string;
+    latitude: number
+    longitude: number;
+}

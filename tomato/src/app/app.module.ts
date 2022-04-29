@@ -28,8 +28,9 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
-import { AuthenticationService, AuthGuard } from './services/authentication.service';
+import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationService, AuthGuard } from './services/authentication.service';
 import { LogoutComponent } from './logout/logout.component'; 
 
 
@@ -70,10 +71,12 @@ import { LogoutComponent } from './logout/logout.component';
     MatExpansionModule,
     MatIconModule,
     MatSlideToggleModule,
+    HttpClientModule,
   ],
    providers: [
-    AuthenticationService,
-    AuthGuard,
+     UserService,
+     AuthenticationService,
+     AuthGuard,
     { 
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
