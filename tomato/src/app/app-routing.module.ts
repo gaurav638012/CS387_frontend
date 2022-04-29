@@ -15,6 +15,7 @@ import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
 
 const routes: Routes = [
   {path: 'register',component: RegisterComponent},
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'restaurants', component: RestaurantsComponent}, 
   {path: 'orders/:id', component: OrdersComponent}, 
   {path: 'orders/:id/:oid', component: OrderDetailsComponent}, 
+  {path: 'approveOrders', component: ApproveOrdersComponent}, 
   {path: '',component: HomeComponent},
   {path: "**", redirectTo:""},
 ];

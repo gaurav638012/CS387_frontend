@@ -27,6 +27,7 @@ import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { ApproveOrdersComponent } from './approve-orders/approve-orders.component';
 
 
 
@@ -47,7 +48,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     AddToCartComponent,
     RestaurantsComponent,
     OrdersComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    ApproveOrdersComponent
   ],
   exports: [
   ],
