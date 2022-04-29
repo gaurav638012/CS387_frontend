@@ -1,0 +1,15 @@
+#items {
+    margin-top: -3%;
+}
+
+a {
+    color: white;
+}
+
+mat-expansion-panel {
+    margin-top : 5%;
+}
+
+mat-form-field {
+    width: 100%;
+}

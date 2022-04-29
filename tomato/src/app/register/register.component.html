@@ -1,216 +1,372 @@
+<router-outlet></router-outlet>
+<div className="App">
+  <div class="preloader">
+      <div class="loader">
+          <div class="ytp-spinner">
+              <div class="ytp-spinner-container">
+                  <div class="ytp-spinner-rotator">
+                      <div class="ytp-spinner-left">
+                          <div class="ytp-spinner-circle"></div>
+                      </div>
+                      <div class="ytp-spinner-right">
+                          <div class="ytp-spinner-circle"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <header class="header">
+      <div class="navbar-area">
+          <div class="container">
+              <div class="row align-items-center">
+                  <div class="col-lg-12">
+                      <nav class="navbar navbar-expand-lg">
+                          <a class="navbar-brand" href="#">
+                              <img src="assets/img/logo/logo.svg" alt="Logo" />
+                          </a>
+                          <button class="navbar-toggler" type="button" data-toggle="collapse"
+                              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                              aria-expanded="false" aria-label="Toggle navigation">
+                              <span class="toggler-icon"></span>
+                              <span class="toggler-icon"></span>
+                              <span class="toggler-icon"></span>
+                          </button>
+                          <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                              <ul id="nav" class="navbar-nav ml-auto">
+                                  <li class="nav-item">
+                                      <a class="page-scroll" routerLink="/">Home</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="page-scroll" routerLink="/login">Login</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </nav>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>
+  <section id="home" class="hero-section">
+      <div class="hero-shape">
+          <img src="assets/img/hero/hero-shape.svg" alt="" class="shape" />
+      </div>
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-lg-6">
+                  <div class="hero-content">
+                    <mat-stepper orientation="vertical" linear #stepper>
+
+                      <!-- Form 1 : Choosing the type -->
+                      <mat-step  [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                          <ng-template matStepLabel>Choose the type</ng-template>
+                          <mat-grid-list cols="3" rowHeight="1:1">
+                            <mat-grid-tile>
+                              <button mat-button (click)="setCustomer()" matStepperNext>
+                                <mat-card class="customer">
+                                  <mat-card-title-group>
+                                  </mat-card-title-group>
+                                  <mat-card-content>
+                                    <img mat-card-md-image src="../../assets/img/customer.jpg" >
+                                  </mat-card-content>
+                                </mat-card>
+                              </button>
+                            </mat-grid-tile>
+                    
+                            <mat-grid-tile>
+                              <button mat-button (click)="setDelivery()" matStepperNext>
+                                <mat-card class="delivery">
+                                  <mat-card-title-group>
+                                  </mat-card-title-group>
+                                  <mat-card-content>
+                                    <img mat-card-md-image src="../../assets/img/delivery.png" >
+                                  </mat-card-content>
+                                </mat-card>
+                              </button>
+                            </mat-grid-tile>
+                    
+                            <mat-grid-tile>
+                              <button mat-button (click)="setRestaurant()" matStepperNext>
+                                <mat-card class="restaurant">
+                                  <mat-card-title-group>
+                                  </mat-card-title-group>
+                                  <mat-card-content>
+                                    <img mat-card-md-image src="../../assets/img/restaurant.png" >
+                                  </mat-card-content>
+                                </mat-card>
+                              </button>
+                            </mat-grid-tile>
+                          </mat-grid-list>
+                        </form>
+                      </mat-step>
+                  
+                      <!-- Form 2: Fill in the username/password according to the type chosen -->
+                      <mat-step [stepControl]="secondFormGroup" [completed]="isCompleted0">
+                        <form [formGroup]="secondFormGroup">
+                          <ng-template matStepLabel>Fill out your details</ng-template>
+                          <p>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Username</mat-label>
+                              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                     required [(ngModel)]="username">
+                            </mat-form-field>
+                          </p> 
+                          <p>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Password</mat-label>
+                              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                     required [(ngModel)]="password">
+                            </mat-form-field>
+                          </p>
+                          <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            {{ checkCommonForm() }}
+                            <button mat-button matStepperNext [disabled]="!filledfirst">Next</button>
+                          </div>
+                        </form>
+                      </mat-step>
+                  
+                      <!-- Form 3: Fill in the specific details -->
+                      <mat-step [stepControl]="thirdFormGroup" [completed]="isCompleted1">
+                        <form [formGroup]="thirdFormGroup">
+                          <ng-template matStepLabel>Fill out your details</ng-template>
+                          <!-- Customer Details -->
+                          <ng-template [ngIf]="is_cust">
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Mobile number</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="cust_mobile">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="cust_email"> 
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Address</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="cust_address"> 
+                              </mat-form-field>
+                            </p>
+                          </ng-template> 
+                  
+                          <!-- Restaurant Details -->
+                          <ng-template [ngIf]="is_rest">
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Restaurant Name</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="rest_name">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Mobile number</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="rest_mobile">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="rest_email">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Address</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="rest_address">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Covid Safety</mat-label>
+                                <mat-select>
+                                  <mat-option value="zero">No</mat-option>
+                                  <mat-option value="one">Yes</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Opening Time</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="open_time">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Closing Time</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="close_time">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Average Cost for Two</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="avg_cost_for_two">
+                              </mat-form-field>
+                            </p>
+                          </ng-template>
+                  
+                          <!-- Delivery personnel Details -->
+                          <ng-template [ngIf]="is_del">
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Mobile number</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="del_mobile">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                       required [(ngModel)]="del_email">
+                              </mat-form-field>
+                            </p>
+                            <p>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Number of Doses</mat-label>
+                                <mat-select>
+                                  <mat-option value="zero">0</mat-option>
+                                  <mat-option value="one">1</mat-option>
+                                  <mat-option value="two">2</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </p>
+                          </ng-template>
+                  
+                          
+                          <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            {{ checkSpecificForm() }}
+                            <button mat-button matStepperNext [disabled]="!filledsecond">Next</button>
+                          </div>
+                        </form>
+                      </mat-step>
+                  
+                      <!-- Form 4: Done page  -->
+                      <mat-step [completed]="isCompleted2">
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p>You are now done. Go to <a routerLink="/home">Home</a> page now</p>
+                        <div>
+                          <button mat-button matStepperPrevious>Back</button>
+                          <button mat-button (click)="stepper.reset()">Reset</button>
+                        </div>
+                      </mat-step>
+                    
+                    </mat-stepper>
+                  </div>
+              </div>
+              
+              <div class="col-lg-6">
+                  <div class="hero-img wow fadeInUp" data-wow-delay=".5s">
+                      <img src="assets/img/hero/hero-img.svg" alt="" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <footer id="footer" class="footer pt-100 pb-70">
+      <div class="footer-shape">
+          <img src="assets/img/footer/footer-left.svg" alt="" class="shape shape-1" />
+          <img src="assets/img/footer/footer-right.svg" alt="" class="shape shape-2" />
+      </div>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-3 col-md-6">
+                  <div class="footer-widget wow fadeInUp" data-wow-delay=".2s">
+                      <div class="logo">
+                          <a href="#"><img src="assets/img/logo/logo-2.svg" alt="logo" /></a>
+                      </div>
+                      <div class="download-btns">
+                          <a href="javascript:void(0)">
+                              <span class="icon"><i class="lni lni-apple"></i></span>
+                              <span class="text">Download on the <b>App Store</b> </span>
+                          </a>
+                          <a href="javascript:void(0)">
+                              <span class="icon"><i class="lni lni-play-store"></i></span>
+                              <span class="text">GET IT ON <b>Play Store</b> </span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                  <div class="footer-widget wow fadeInUp" data-wow-delay=".4s">
+                      <h3>About Us</h3>
+                      <ul class="links">
+                          <li>
+                              <a href="javascript:void(0)">Home</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Services</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">About Us</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Contact</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                  <div class="footer-widget wow fadeInUp" data-wow-delay=".6s">
+                      <h3>About</h3>
+                      <ul class="links">
+                          <li>
+                              <a href="javascript:void(0)">Partners</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Terms of Service</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Privacy Policy</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Refund Policy</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                  <div class="footer-widget wow fadeInUp" data-wow-delay=".8s">
+                      <h3>Support</h3>
+                      <ul class="links">
+                          <li>
+                              <a href="javascript:void(0)">Open Ticket</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Community</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Return Policy</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0)">Accessibility</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <a href="#" class="scroll-top btn-hover">
+      <i class="lni lni-chevron-up"></i>
+  </a>
 <div>
 
-  <mat-stepper linear #stepper>
-
-    <!-- Form 1 : Choosing the type -->
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Choose the type</ng-template>
-        <mat-grid-list cols="3" rowHeight="1:1">
-          <mat-grid-tile>
-            <button mat-button (click)="setCustomer()" matStepperNext>
-              <mat-card class="customer">
-                <mat-card-title-group>
-                </mat-card-title-group>
-                <mat-card-content>
-                  <img mat-card-xl-image src="../../assets/img/customer.jpg" >
-                </mat-card-content>
-              </mat-card>
-            </button>
-          </mat-grid-tile>
-  
-          <mat-grid-tile>
-            <button mat-button (click)="setDelivery()" matStepperNext>
-              <mat-card class="delivery">
-                <mat-card-title-group>
-                </mat-card-title-group>
-                <mat-card-content>
-                  <img mat-card-xl-image src="../../assets/img/delivery.png" >
-                </mat-card-content>
-              </mat-card>
-            </button>
-          </mat-grid-tile>
-  
-          <mat-grid-tile>
-            <button mat-button (click)="setRestaurant()" matStepperNext>
-              <mat-card class="restaurant">
-                <mat-card-title-group>
-                </mat-card-title-group>
-                <mat-card-content>
-                  <img mat-card-xl-image src="../../assets/img/restaurant.png" >
-                </mat-card-content>
-              </mat-card>
-            </button>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </form>
-    </mat-step>
-
-    <!-- Form 2: Fill in the username/password according to the type chosen -->
-    <mat-step [stepControl]="secondFormGroup" [completed]="isCompleted0">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your details</ng-template>
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required [(ngModel)]="username">
-          </mat-form-field>
-        </p> 
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required [(ngModel)]="password">
-          </mat-form-field>
-        </p>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          {{ checkCommonForm() }}
-          <button mat-button matStepperNext [disabled]="!filledfirst">Next</button>
-        </div>
-      </form>
-    </mat-step>
-
-    <!-- Form 3: Fill in the specific details -->
-    <mat-step [stepControl]="thirdFormGroup" [completed]="isCompleted1">
-      <form [formGroup]="thirdFormGroup">
-        <ng-template matStepLabel>Fill out your details</ng-template>
-        <!-- Customer Details -->
-        <ng-template [ngIf]="is_cust">
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Mobile number</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="cust_mobile">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="cust_email"> 
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="cust_address"> 
-            </mat-form-field>
-          </p>
-        </ng-template> 
-
-        <!-- Restaurant Details -->
-        <ng-template [ngIf]="is_rest">
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Restaurant Name</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="rest_name">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Mobile number</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="rest_mobile">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="rest_email">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="rest_address">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Covid Safety</mat-label>
-              <mat-select>
-                <mat-option value="zero">No</mat-option>
-                <mat-option value="one">Yes</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Opening Time</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="open_time">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Closing Time</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="close_time">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Average Cost for Two</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="avg_cost_for_two">
-            </mat-form-field>
-          </p>
-        </ng-template>
-
-        <!-- Delivery personnel Details -->
-        <ng-template [ngIf]="is_del">
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Mobile number</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="del_mobile">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required [(ngModel)]="del_email">
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Number of Doses</mat-label>
-              <mat-select>
-                <mat-option value="zero">0</mat-option>
-                <mat-option value="one">1</mat-option>
-                <mat-option value="two">2</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </p>
-        </ng-template>
-
-        
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          {{ checkSpecificForm() }}
-          <button mat-button matStepperNext [disabled]="!filledsecond">Next</button>
-        </div>
-      </form>
-    </mat-step>
-
-    <!-- Form 4: Done page  -->
-    <mat-step [completed]="isCompleted2">
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-stepper>
-  
   <!-- <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">

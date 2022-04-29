@@ -1,0 +1,11 @@
+a {
+    color: inherit;
+}
+
+mat-expansion-panel {
+    margin-top: 2%;
+}
+
+mat-form-field {
+    width: 100%;
+}
